@@ -67,15 +67,7 @@
             const _Nulo_ = 0
 
             method bonoPorPresentismo2(diasAusentados, neto, tipoDeBono) {
-                if(tipoDeBono == "Normal") {
-                    self.Normal(diasAusentados)
-                }else if(tipoDeBono == "Ajuste") {
-                    self.Ajuste(diasAusentados)
-                }else if(tipoDeBono == "Demagógico") {
-                    self.Demagogico(neto)
-                }else if(tipoDeBono == "Nulo") {
-                    self.Nulo()
-                }
+
             }
             method Normal(diasAusentados)
             {

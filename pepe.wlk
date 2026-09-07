@@ -1,3 +1,3 @@
-object pepe {
+object pepe {a
 	
 }

@@ -2,7 +2,7 @@ import pepe.*
 
 describe "Sueldo Pepe" {
 	
-	test "Pepe el cadete 1" {
+	test "Pepe el cadetes 1" {
 		pepe.trabajaDe("cadete")
 		pepe.diasDeAusenciaTotales(3)
 		pepe.bonoPorResultados("fijo")

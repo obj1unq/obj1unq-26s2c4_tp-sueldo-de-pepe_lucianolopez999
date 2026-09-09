@@ -1,29 +1,48 @@
 import pepe.*
-
+import moria.*
+import ernesto.*
+import roque.*
 describe "Sueldo Pepe" {
 	
 	test "Pepe el cadetes 1" {
-		pepe.trabajaDe("cadete")
+		pepe.trabajaDe(cadete)
 		pepe.diasDeAusenciaTotales(3)
-		pepe.bonoPorResultados("fijo")
-		pepe.bonoPorPresentismo("Normal")
+		pepe.bonoPorResultados(bonoFijo)
+		pepe.bonoPorPresentismo(bonoNormal)
 		assert.equals(20800, pepe.sueldoFinal())
 	}
 
 	test "Pepe el gerente" {
-		pepe.trabajaDe("gerente")
-		pepe.tipoDeMonto("porcentaje")
+		pepe.trabajaDe(gerente)
 		pepe.diasDeAusenciaTotales(1)
-		pepe.bonoPorResultados("porcentaje")
-		pepe.bonoPorPresentismo("Nulo")
+		pepe.bonoPorResultados(bonoPorcentaje)
+		pepe.bonoPorPresentismo(bonoNulo)
 		assert.equals(16500, pepe.sueldoFinal())
 	}
 	
 	test "Pepe el cadete 2" {
-		pepe.trabajaDe("cadete")
+		pepe.trabajaDe(cadete)
 		pepe.diasDeAusenciaTotales(0)
-		pepe.bonoPorResultados("porcentaje")
-		pepe.bonoPorPresentismo("Normal")
+		pepe.bonoPorResultados(bonoPorcentaje)
+		pepe.bonoPorPresentismo(bonoNormal)
 		assert.equals(24000, pepe.sueldoFinal())
 	}
+
+	test "Pepe, Ernesto y Roque los cadetes a medio tiempo"
+	{
+		pepe.trabajaDe(cadete)
+		ernesto.trabajaDe(cadete)
+		pepe.trabajoAMedioTiempo()
+		ernesto.trabajoAMedioTiempo()
+		pepe.diasDeAusenciaTotales(0)
+		roque.bonoPorResultados(bonoFijo)
+		pepe.bonoPorResultados(bonoPorcentaje)
+		pepe.bonoPorPresentismo(bonoDemagogico)
+		ernesto.bonoPorPresentismo(bonoAjuste)
+		assert.equals(11500, pepe.sueldoFinal())
+		assert.equals(10100, ernesto.sueldoFinal())
+		assert.equals(37800, roque.sueldoFinal())
+	}
+
 }
+

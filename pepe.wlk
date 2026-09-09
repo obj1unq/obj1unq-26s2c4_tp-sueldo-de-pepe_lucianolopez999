@@ -1,5 +1,5 @@
 object pepe {
-            var tipoDeMonto = ""
+            var tipoDeMonto = "test"
             var tipoDeBono = ""
             var trabajaDe  = ""
             var diasAusentados = 0

@@ -1,15 +1,15 @@
-        object pepe {
+object pepe {
             var tipoDeMonto = ""
+            var tipoDeBono = ""
+            var trabajaDe  = ""
             var diasAusentados = 0
-            method esGerente(esGerente) {
-                sueldoNeto.esGerente(esGerente)
+            method trabajaDe(trabajo) {
+                trabajaDe = trabajo
+                trabajo.es()
             }
-            method tipoDeMonto(montoDe) 
-            {
-                tipoDeMonto = montoDe
-            }
-            method bonoPorResultados() {
-                bonoResultado.bonoPorResultados(sueldoNeto.sueldoNeto(), tipoDeMonto)
+            method bonoPorResultados(tipoDeMonto) {
+                tipoDeMonto = tipoDeMonto
+                tipoDeMonto.bonoPor(sueldoNeto.sueldoNeto())
             }
 
             method diasDeAusenciaTotales(diasDeAusencia)
@@ -18,83 +18,91 @@
             }
             method bonoPorPresentismo(tipoDeBono)
             {
-                bonoPresentismo.bonoPorPresentismo2(diasAusentados, sueldoNeto.sueldoNeto(), tipoDeBono)
+                tipoDeBono = tipoDeBono
+                tipoDeBono.bono(diasAusentados, sueldoNeto.sueldoNeto())
             }
 
 
             method sueldoFinal() {
-                return sueldoNeto.sueldoNeto() + bonoResultado.bonoResultado() + bonoPresentismo.bonoPresentismo()
+                return trabajo.es() + tipoDeMonto.bonoResultado() + tipoDeBono.bonoPresentismo()
             }
-        }
+}
 
-    object sueldoNeto {
-            var _neto_ = 0
-            method esGerente(esGerente) {
-                if(esGerente)  _neto_ = 15000 else _neto_ = 20000
+    object gerente
+    {
+            const _SueldoNeto_ = 15000
+            method es() {
+                 return _SueldoNeto_
+    }
+    object cadete
+    {
+            const _SueldoNeto_ = 20000
+            method es() {
+                 return _SueldoNeto_
+    }
+    object bonoFijo {
+            var _bonoFijo_ = 0
+            const _Monto_fijo_ = 800
+            method bonoPor(neto) {
+                _bonoFijo_ = _Monto_fijo_
             }
-            method sueldoNeto() {
-                return _neto_
+            method bonoResultado() {
+                return _bonoFijo_
             }
     }
-    object bonoResultado 
-    {
-            var _bonoResultado_ = 0
-            const _Monto_fijo_ = 800
-
-            method bonoPorResultados(neto, tipoDeMonto) {
-                if(tipoDeMonto == "fijo") {
-                    _bonoResultado_ = _Monto_fijo_
-                }else{
-                    self.montoPorcentaje(neto, tipoDeMonto)
-                }
-
-            }
-            method montoPorcentaje(neto, tipoDeMonto) {
-                if(tipoDeMonto == "porcentaje") {
-                    _bonoResultado_ = (neto * 10) / 100
+    object bonoPorcentaje(neto, tipoDeMonto) {
+            var _bonoPorcentaje_ = 0
+            method montoPorcentaje(neto) {
+                    _bonoPorcentaje_ = (neto * 10) / 100
                 }
             }
             method bonoResultado() {
-                return _bonoResultado_
+                return _bonoPorcentaje_
             }
-
     }
 
-    object bonoPresentismo{
-            var _Normal_ = 0
-            var _Ajuste_ = 0
+object bonoDemagogico()
+{
             var _Demagógico_ = 0
-            const _Nulo_ = 0
-
-            method bonoPorPresentismo2(diasAusentados, neto, tipoDeBono) {
-
-            }
-            method Normal(diasAusentados)
-            {
-                if(diasAusentados == 0) {
-                    _Normal_ = 2000
-                }else{
-                    self.NormalUnDiaDeAusencia(diasAusentados)
-                }
-            }
-            method NormalUnDiaDeAusencia(diasAusentados)
-            {
-                if(diasAusentados == 1) _Normal_ = 1000 else _Normal_ = 0
-            }
-            method Ajuste(diasAusentados)
-            {
-                if(diasAusentados == 0) _Ajuste_ = 100 else _Ajuste_ = 0
-
-            }
-            method Demagogico(neto)
+            method Bono(diasAusentados, neto)
             {
                 if(neto < 18000) _Demagógico_ = 500 else _Demagógico_ = 300
             }
-            method Nulo()
+            method bonoPresentismo() {
+                return _Demagógico_
+            }
+}
+object bonoAjuste()
+{
+            var _Ajuste_ = 0
+            method Bono(diasAusentados, neto)
+            {
+                if(diasAusentados == 0) _Ajuste_ = 100 else _Ajuste_ = 0
+            }
+            method bonoPresentismo() {
+                return _Ajuste_
+            }
+}
+object bonoNormal()
+{
+            var _Normal_ = 0
+            method Bono(diasAusentados, neto)
+            {
+                if(diasAusentados == 0) _Normal_ = 2000 else if(diasAusentados == 1) _Normal_ = 1000 else _Normal_ = 0
+            }
+            method bonoPresentismo() {
+                return _Normal_
+            }
+}
+
+object bonoNulo()
+{
+            const _Nulo_ = 0
+            method Bono(diasAusentados, neto)
             {
                 
             }
-        method bonoPresentismo() {
-                return _Normal_ + _Ajuste_ + _Demagógico_ + _Nulo_
-            } 
-
+            method bonoPresentismo() {
+                return _Nulo_
+            }
+}
